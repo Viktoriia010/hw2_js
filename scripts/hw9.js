@@ -157,3 +157,162 @@ form.addEventListener("submit", (e) => {
     cl("Form invalid");
   }
 });
+
+function setCookie(cname, cvalue) {
+  const d = new Date();
+  d.setTime(d.getTime() + 356 * 60 * 60 * 1000);
+  let expires = "expires=" + d.toUTCString();
+  document.cookie =
+    cname + "=" + encodeURIComponent(cvalue) + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(";");
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == " ") {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+const themeBtn = document.getElementById("white-button");
+
+function applyTheme(theme) {
+  document.body.classList.toggle("white", theme === "light");
+  if (theme === "light") {
+    g[1].classList.add("white-item-moon");
+    g[0].classList.remove("white-item-sun");
+
+    themeBtn.classList.add("white-btn-moon");
+    themeBtn.classList.remove("white-btn-sun");
+  } else {
+    g[1].classList.remove("white-item-moon");
+    g[0].classList.add("white-item-sun");
+
+    themeBtn.classList.remove("white-btn-moon");
+    themeBtn.classList.add("white-btn-sun");
+  }
+
+  setCookie("theme", theme);
+}
+
+const g = document.querySelectorAll("g");
+
+themeBtn.addEventListener("click", () => {
+  const current = getCookie("theme") || "dark";
+  const newTheme = current === "dark" ? "light" : "dark";
+  applyTheme(newTheme);
+});
+
+applyTheme(getCookie("theme") || "dark");
+
+const language = {
+  uk: {
+    title: "Реєстраційна форма",
+    desc: "Приклад сучасної HTML форми з різними елементами",
+    name: "Ім'я",
+    surname: "Прізвище",
+    email: "Email",
+    password: "Пароль",
+    birthday: "Дата народження",
+    phone: "Телефон",
+    coun: "Країна",
+    country: {
+      uk: "Україна",
+      pl: "Польща",
+      ge: "Німеччина",
+      usa: "США",
+    },
+    gen: "Стать",
+    gender: {
+      m: "Чоловік",
+      w: "Жінка",
+    },
+    skil: "Ваші навички",
+
+    range: "Рівень досвіду",
+    file: "Завантажити файл",
+    comments: "Коментар",
+    agree: "Я погоджуюсь з умовами",
+    submit: "Відправити",
+    reset: "Очистити",
+  },
+  en: {
+    title: "Registration form",
+    desc: "Example of modern HTML form with different elements",
+    name: "Name",
+    surname: "Surname",
+    email: "Email",
+    password: "Password",
+    birthday: "Birthday",
+    phone: "Phone",
+    coun: "Country",
+    country: {
+      uk: "Ukraine",
+      pl: "Poland",
+      ge: "Germany",
+      usa: "United States",
+    },
+    gen: "Gender",
+    gender: {
+      m: "Male",
+      w: "Female",
+    },
+    skil: "Your skills",
+
+    range: "Experience level",
+    file: "Upload file",
+    comments: "Comment",
+    agree: "I agree to the terms",
+    submit: "Submit",
+    reset: "Reset",
+  },
+};
+
+const selectLang = document.getElementById("lang");
+function applyLang(lang) {
+  const t = language[lang];
+
+  document.querySelector("h1").textContent = t.title;
+  document.querySelectorAll("p")[1].textContent = t.desc;
+
+  document.querySelectorAll("label")[0].textContent = t.name;
+  document.querySelectorAll("label")[1].textContent = t.surname;
+  document.querySelectorAll("label")[2].textContent = t.email;
+  document.querySelectorAll("label")[3].textContent = t.password;
+  document.querySelectorAll("label")[4].textContent = t.birthday;
+  document.querySelectorAll("label")[5].textContent = t.phone;
+  document.querySelectorAll("label")[6].textContent = t.coun;
+  document.querySelectorAll("#mySelect option")[0].textContent = t.country.uk;
+  document.querySelectorAll("#mySelect option")[1].textContent = t.country.pl;
+  document.querySelectorAll("#mySelect option")[2].textContent = t.country.ge;
+  document.querySelectorAll("#mySelect option")[3].textContent = t.country.usa;
+  document.querySelectorAll("label")[7].textContent = t.gen;
+  document.querySelectorAll(".radio-group label span")[0].textContent =
+    t.gender.m;
+  document.querySelectorAll(".radio-group label span")[1].textContent =
+    t.gender.w;
+  document.querySelectorAll("label")[10].textContent = t.skil;
+  document.querySelectorAll("label")[15].textContent = t.range;
+  document.querySelectorAll("label")[16].textContent = t.file;
+  document.querySelectorAll("label")[17].textContent = t.comments;
+  document.querySelector("#checkBoxContent").textContent = t.agree;
+  document.querySelector(".submit-btn").textContent = t.submit;
+  document.querySelector(".reset-btn").textContent = t.reset;
+
+  setCookie("lang", lang);
+}
+
+selectLang.addEventListener("change", (e) => {
+  applyLang(e.target.value);
+});
+
+applyLang(getCookie("lang") || "uk");
+selectLang.value = getCookie("lang") || "uk";

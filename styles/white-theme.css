@@ -1,0 +1,81 @@
+.white-btn-sun {
+  position: fixed;
+  right: 15px;
+  top: 15px;
+  border: none;
+  outline: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  background-color: rgba(255, 251, 145, 0.792);
+  transition: filter 0.4s;
+  cursor: pointer;
+}
+
+.language {
+  position: absolute;
+  right: 85px;
+  top: 15px;
+}
+
+.white-btn-moon {
+  position: fixed;
+  right: 15px;
+  top: 15px;
+  border: none;
+  outline: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  background-color: rgba(145, 198, 255, 0.792);
+  transition: filter 0.4s;
+  cursor: pointer;
+}
+
+.white-btn:hover {
+  filter: brightness(120%);
+}
+
+.white-btn:active {
+  filter: brightness(80%);
+}
+
+.white-item {
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.white-item circle,
+.white-item path {
+  fill: rgb(0, 0, 0, 0.4);
+}
+
+.white-item-sun {
+  opacity: 1;
+}
+.white-item-moon {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+  transform-origin: center;
+}
+
+body.white {
+  background: white;
+  color: #0f172a;
+}
+body.white input,
+body.white textarea,
+body.white select {
+  background: #ffffff82;
+  color: black;
+}
+
+body.white label {
+  color: black;
+}
+
+body.white .checkbox-group label,
+body.white .radio-group label {
+  background: #ffffff82;
+  color: black;
+}
